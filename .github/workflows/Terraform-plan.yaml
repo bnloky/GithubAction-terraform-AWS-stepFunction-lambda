@@ -3,7 +3,7 @@ name: “Terraform-Plan-Infra-Plan"
 on:
 push:
 branches:
-- FeatureBranch-l
+- Featurebranch-l
 
 jobs:
   build:
