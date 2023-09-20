@@ -1,7 +1,7 @@
 name: Terraform-Plan-Infra-Plan
 
 on:
- workflow_dispatch:
+  workflow_dispatch:
 
 jobs:
   build:
