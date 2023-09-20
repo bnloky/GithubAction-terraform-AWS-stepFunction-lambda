@@ -1,9 +1,7 @@
 name: Terraform-Plan-Infra-Plan
 
 on:
-push:
-branches:
-- Featurebranch-l
+ workflow_dispatch:
 
 jobs:
   build:
