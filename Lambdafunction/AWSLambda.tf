@@ -8,7 +8,7 @@ data "archive_file" "init" {
 # Create an S3 bucket
 resource "aws_s3_bucket" "mybucket1995" {
   bucket = "mys3bucketfordyanamodb"
-  acl    = "private"
+  acl    = "public"
 
   tags = {
     Name = "mybucket1995"
@@ -24,7 +24,7 @@ resource "aws_s3_bucket_object" "object" {
 
 # IAM role for Lambda
 resource "aws_iam_role" "lambda_role" {
-  name = "lambda_role"
+  name = "My-lambda_role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -42,7 +42,7 @@ resource "aws_iam_role" "lambda_role" {
 
 # IAM role-policy for Lambda
 resource "aws_iam_policy" "lambda_policy" {
-  name        = "lambda_policy"
+  name        = "My-lambda_policy"
   description = "Policy for Lambda execution"
 
   policy = jsonencode({
@@ -71,9 +71,4 @@ resource "aws_lambda_function" "test_lambda" {
   role          = aws_iam_role.lambda_role.arn
   handler       = "Example.handler"
   runtime       = "python3.8"
-}
-
-# Output to be consumed by other modules
-output "pythonlambdaarn" {
-  value = aws_lambda_function.test_lambda.arn
 }

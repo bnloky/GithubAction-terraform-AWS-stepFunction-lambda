@@ -4,7 +4,7 @@ provider "aws" {
 
 terraform {
   backend "s3" {
-    bucket         = "my-dynamodb-tffilestore"
+    bucket         = "mys3bucketfordyanamodb"
     key            = "terraform1.tfstate"
     region         = "ap-south-1"  # Replace with your desired region
     encrypt        = true
