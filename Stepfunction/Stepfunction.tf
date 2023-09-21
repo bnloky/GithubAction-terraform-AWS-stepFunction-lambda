@@ -47,7 +47,7 @@ resource "aws_sfn_state_machine" "sfn_state_machine" {
     States  = {
       "ExampleLambdaFunctionApp" = {
         Type     = "Task",
-        Resource = var.pythonfunctionapparn,
+        Resource = var.pythonfunctionapparn
         End      = true
       }
     }

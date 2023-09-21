@@ -18,5 +18,7 @@ module "awslambdafunction" {
 
 module "awsstepfunction" {
   source               = "./Stepfunction"
-  pythonfunctionapparn = module.awslambdafunction.pythonlambdaarn
+  pythonfunctionapparn = module.awslambdafunction.pythonfunctionapparn
 }
+
+
