@@ -66,7 +66,7 @@ resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
 # AWS Lambda function
 resource "aws_lambda_function" "test_lambda" {
   function_name = "Example"
-  s3_bucket     = aws_s3_bucket.cqpocsbucket.id
+  s3_bucket     = aws_s3_bucket.mybucket1995.id
   s3_key        = "Example.zip"
   role          = aws_iam_role.lambda_role.arn
   handler       = "Example.handler"
@@ -74,6 +74,6 @@ resource "aws_lambda_function" "test_lambda" {
 }
 
 # Output to be consumed by other modules
-output "pythonLambdaArn" {
+output "pythonlambdaarn" {
   value = aws_lambda_function.test_lambda.arn
 }

@@ -12,9 +12,6 @@ terraform {
 }
 
 
-
-
-
 module "awslambdafunction" {
   source = "./Lambdafunction"
 }
