@@ -51,7 +51,7 @@ resource "aws_iam_policy" "lambda_policy" {
       {
         Action   = "s3:GetObject",
         Effect   = "Allow",
-        Resource = aws_s3_bucket.cqpocsbucket.arn
+        Resource = aws_s3_bucket.mybucket1995.arn
       }
       # Add other permissions as needed
     ]
