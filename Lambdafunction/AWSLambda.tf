@@ -72,7 +72,3 @@ resource "aws_lambda_function" "test_lambda" {
   handler       = "Example.handler"
   runtime       = "python3.8"
 }
-
-output "pythonlambdaarn" {
-  pythonfunctionapparn = module.awslambdafunction.pythonfunctionapparn
-}
