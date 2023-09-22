@@ -24,15 +24,15 @@ resource "aws_s3_bucket_object" "object" {
 
 # IAM role for Lambda
 resource "aws_iam_role" "lambda_role" {
-  name = "My-lambda_role"
-  assume_role_policy = file("LambdaFunction/lambda_assume_role_policy.json")
+  name = "My_lambda_role"
+  assume_role_policy = file("Lambdafunction/lambda_assume_role_policy.json")
 }
   
 # IAM role-policy for Lambda
 resource "aws_iam_role_policy" "lambda_policy" {
   name        = "My-lambda_policy"
   role        = aws_iam_role.lambda_role.id
-  policy      = file("LambdaFunction/lambda_policy.json")
+  policy      = file("Lambdafunction/lambda_policy.json")
 }
   
 # AWS Lambda function
