@@ -44,7 +44,7 @@ policy = <<-EOF
 }
 
 ##AWS State function - State machine
-resource "aws_sfn_state machine" "My_state_machine" {
+resource "aws_sfn_state_machine" "My_state_machine" {
 name     =  "My-demo-stepfunction"
 role_arn = aws_iam_role.step_function_role.arn
 
