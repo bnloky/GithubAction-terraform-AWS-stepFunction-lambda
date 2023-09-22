@@ -11,7 +11,7 @@ resource "aws_s3_bucket" "mybucket1995" {
   acl    = "private"
 
   tags = {
-    Name = "mybucket1995"
+    Name = "mybucket1995-1"
   }
 }
 
@@ -19,50 +19,22 @@ resource "aws_s3_bucket" "mybucket1995" {
 resource "aws_s3_bucket_object" "object" {
   bucket = aws_s3_bucket.mybucket1995.id
   key    = "Example.zip"
-  source = data.archive_file.init.output_path
-}
+  source = "${path.module}/Example.zip" 
+}  
 
 # IAM role for Lambda
 resource "aws_iam_role" "lambda_role" {
   name = "My-lambda_role"
-
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Action = "sts:AssumeRole",
-        Effect = "Allow",
-        Principal = {
-          Service = "lambda.amazonaws.com"
-        }
-      }
-    ]
-  })
+  assume_role_policy = file("LambdaFunction/lambda_assume_role_policy.json")
 }
-
+  
 # IAM role-policy for Lambda
-resource "aws_iam_policy" "lambda_policy" {
+resource "aws_iam_role_policy" "lambda_policy" {
   name        = "My-lambda_policy"
-  description = "Policy for Lambda execution"
-
-  policy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Action   = "s3:GetObject",
-        Effect   = "Allow",
-        Resource = aws_s3_bucket.mybucket1995.arn
-      }
-      # Add other permissions as needed
-    ]
-  })
+  role        = aws_iam_role.lambda_role.id
+  policy      = file("LambdaFunction/lambda_policy.json")
 }
-
-resource "aws_iam_role_policy_attachment" "lambda_policy_attachment" {
-  policy_arn = aws_iam_policy.lambda_policy.arn
-  role       = aws_iam_role.lambda_role.name
-}
-
+  
 # AWS Lambda function
 resource "aws_lambda_function" "test_lambda" {
   function_name = "Example"
@@ -72,3 +44,10 @@ resource "aws_lambda_function" "test_lambda" {
   handler       = "Example.handler"
   runtime       = "python3.8"
 }
+
+## output to be consumed by other module
+output "pyhtonLambdaArn" {
+  value = aws_lambda_function.test_lambda.arn
+}
+
+

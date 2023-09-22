@@ -11,3 +11,13 @@ terraform {
   }
 }
 
+## create a aws python lambda function
+module "awslambdafunction" {
+  source = "./Lambdafunction"
+}
+
+## crate AWS Stepfunction to invoke Aws lambda function
+module "awsstepfunction" {
+  source  = "./Stepfunction"
+  pythonfunctionapparn = module.awslambdafunction.pythonLambdaArn
+}
