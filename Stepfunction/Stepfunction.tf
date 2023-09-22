@@ -6,20 +6,20 @@ variable "pythonfunctionapparn" {
 resource "aws_iam_role" "step_function_role" {
 name = "my-stepfunction-role"
 assume_role_policy = <<-EOF
- {
-   "Version": 2012-10-17",
-   "Statement": [
-      {
-        "Action": "sts:AssumeRole",
-        "principal": {
-          "Service": "states.amazonaws.com"
-        },
-        "Effect": "Allow",
-        "Sid": "StepFunctionAssumeRole"
-      }
-   ]
-  }
-  EOF
+{
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Action": "sts:AssumeRole",
+      "Principal": {
+        "Service": "states.amazonaws.com"
+      },
+      "Effect": "Allow",
+      "Sid": "StepFunctionAssumeRole"
+    }
+  ]
+}
+EOF
 }
 
 ## Aws Step function role-policy
@@ -31,16 +31,14 @@ policy = <<-EOF
 {
   "Version": "2012-10-17",
   "Statement": [
-     {
-       "Action": [
-          "lambda:InvokeFunction"
-       ],
-       "Effect": "Allow",
-       "Resource": "${var.pythonfunctionapparn}"
-      }
-    ]
-  }
-  EOF
+    {
+      "Action": ["lambda:InvokeFunction"],
+      "Effect": "Allow",
+      "Resource": "${var.pythonfunctionapparn}"
+    }
+  ]
+}
+EOF
 }
 
 ##AWS State function - State machine
