@@ -19,5 +19,5 @@ module "awslambdafunction" {
 ## crate AWS Stepfunction to invoke Aws lambda function
 module "awsstepfunction" {
   source  = "./Stepfunction"
-  pythonfunctionapparn = module.awslambdafunction.pythonLambdaArn
+  pythonfunctionapparn = module.awslambdafunction.pyhtonLambdaArn
 }
