@@ -1,56 +1,55 @@
-variable "pythonfunctionapparn" {
+#2 AS Step function role
+resource “aws_iam_role” "step_function_role” {
+
+name = "cloudquickpocsstepfunction-role™
+assume_role_policy = <<-EOF
+{
+
+2012-10-17",
+Statement: [
+
+“Action”: "sts:AssumeRole”,
+“principal”: {
+
+"Service": “states.amazonaws.com"
+}
+“Effect
+
+"Allow",
+‘StepFunctionAssumeRole”
+  ]
+ }
 }
 
-# AS Step function role
-resource "aws_iam_role" "My_step_function_role" {
-  name = "Demo-stepfunction-role"
-  assume_role_olicy = jsonencode({
-    Version = "2012-10-17",
-    Statement = [
-      {
-        Action = "sts:AssumeRole",
-        Effect = "Allow",
-        Principal = {
-          Service = "states.amazonaws.com"
-        }
-      }
-    ]
-  })
-}
+## Aws Step function role-policy
 
-# AWS Step function role-policy
-resource "aws_iam_role_policy" "My_step_function_policy" {
-  name        = "Demo-stepfunctionrole-policy"
-  role        = aws_iam_role.My_step_function_role.id
-  description = "Policy for Step Function Role"
-  policy = jsonencode({
-    Version   = "2012-10-17",
-    Statement = [
-      {
-        Action   = "lambda:InvokeFunction",
-        Effect   = "Allow",
-        Resource = "${var.pythonfunctionapparn}"
-      }
-      # Add other permissions as needed
-    ]
-  })
-}
+resource “aws_iam role policy” "step function policy” {
+"cqpdstepfunctionrole-policy”
+aws_iam_role.step_function_role.id
+policy = <<-EOF
+{
 
-# AWS Step Function State machine
-resource "aws_sfn_state_machine" "sfn_state_machine" {
-  name     = "Demo-stepfunction"
-  role_arn = aws_iam_role.My_step_function_role.arn
+"Version": "2012-10-17",
 
-  definition = jsonencode({
-    Comment = "Invoke AWS Lambda from AWS Step Functions with Terraform",
-    StartAt = "ExampleLambdaFunctionApp",
-    States  = {
-      "ExampleLambdaFunctionApp" = {
-        Type     = "Task",
-        Resource = "${var.pythonfunctionapparn}"
-        End      = true
-      }
-    }
+“Resource”: “${var.pythonfunctionapparn}”
   }
-  )
 }
+ANS State function - State machine
+esource "aws_sfn_state machine” "sfn_state_machine” {
+nane “cloudquickpocsstepfunction™
+role_arn = aws_iam_role.step_function_role.arn
+
+definition = <<EOF
+{
+“Comment”: "Invoke AWS Lambda from AWS Step Functions with Terraform",
+“StartAt": “ExampleLambdaFunctionApp”,
+“States": {
+    "ExampleLambdaFunctionApp": {
+        "Type": "Task",
+        "Resource": "${var.pythonfunctionapparn}",
+        "End": true
+       }
+    } 
+  }
+   EOF
+}   

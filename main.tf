@@ -11,14 +11,3 @@ terraform {
   }
 }
 
-
-module "awslambdafunction" {
-  source = "./Lambdafunction"
-}
-
-module "awsstepfunction" {
-  source               = "./Stepfunction"
-    pythonfunctionapparn = module.awslambdafunction.pythonlambdaapparn
-}
-
-
