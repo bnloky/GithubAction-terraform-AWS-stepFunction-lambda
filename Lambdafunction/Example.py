@@ -1,25 +1,27 @@
+import json
 import boto3
 
-# Initialize the DynamoDB client
-dynamodb = boto3.client('dynamodb', region_name='ap-south-1')
+dynamodb = boto3.resource('dynamodb')
+table_name = 'GameScores'  # Replace with your DynamoDB table name
 
-# Define the table name
-table_name = 'GameScorese'
+def lambda_handler(event, context):
+    # Parse the event data (if needed)
+    data = json.loads(event['body'])
 
-# Define the item (record) you want to add
-new_item = {
-    'PrimaryKeyName': {'S': 'Primary_Key_Value'},
-    'AttributeName1': {'S': 'Value1'},
-    'AttributeName2': {'N': '123'},
-    # Add more attributes as needed
-}
+    # Access the DynamoDB table
+    table = dynamodb.Table(table_name)
 
-# Add the item to the DynamoDB table
-try:
-    response = dynamodb.put_item(
-        TableName=GameScores,
-        Item=new_item
+    # Add a new record to the DynamoDB table
+    response = table.put_item(
+        Item={
+            'PrimaryKeyName': data['primaryKeyValue'],
+            'AttributeName1': data['attributeValue1'],
+            'AttributeName2': data['attributeValue2'],
+            # Add more attributes as needed
+        }
     )
-    print("Item added successfully!")
-except Exception as e:
-    print(f"Error adding item: {str(e)}")
+
+    return {
+        'statusCode': 200,
+        'body': json.dumps('Record added successfully')
+    }
