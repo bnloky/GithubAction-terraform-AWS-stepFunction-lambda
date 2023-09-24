@@ -34,7 +34,14 @@ resource "aws_iam_role_policy" "lambda_policy" {
   role        = aws_iam_role.lambda_role.id
   policy      = file("Lambdafunction/lambda_policy.json")
 }
-  
+
+## IAM role-policy for DynamoDB table add record.
+resource "aws_iam_role_policy" "DynamoDB_policy" {
+  name        = "My-DynamoDB_policy"
+  role        = aws_iam_role.lambda_role.id
+  policy      = file("Lambdafunction/dynamodb_policy.json")
+}
+
 # AWS Lambda function
 resource "aws_lambda_function" "test_lambda" {
   function_name = "Example"

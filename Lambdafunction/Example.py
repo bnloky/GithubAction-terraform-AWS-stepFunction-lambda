@@ -14,9 +14,9 @@ def lambda_handler(event, context):
     # Add a new record to the DynamoDB table
     response = table.put_item(
         Item={
-            'PrimaryKeyName': data['primaryKeyValue'],
-            'AttributeName1': data['attributeValue1'],
-            'AttributeName2': data['attributeValue2'],
+            'PrimaryKeyName': data['1'],
+            'AttributeName1': data['football'],
+            'AttributeName2': data['10'],
             # Add more attributes as needed
         }
     )
